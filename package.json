@@ -26,6 +26,9 @@
     "promise": "^8.3.0",
     "razorpay": "^2.9.2"
   },
+
+  "engines": {"node": ">=18.16.0"},
+
   "main": "app.js",
   "author": "",
   "license": "ISC",

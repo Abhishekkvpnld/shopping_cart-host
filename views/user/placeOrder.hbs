@@ -1,0 +1,130 @@
+<section style="padding-top: 60px;">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 center-content">
+                <h3 style="color:rgb(251, 248, 248); margin-top:20px">Add Deliver Details</h3>
+                <div class=" p-4 mt-4" style="padding-left: 150px;background-image:url('https://images.pexels.com/photos/3791466/pexels-photo-3791466.jpeg?auto=compress&cs=tinysrgb&w=600');border:2px solid;border-radius:10px">
+                    <form action="#" id="checkout-form">
+                        <label for="" style="font-size:medium">
+                            <h6 style="font-weight: bold;">Adress</h6>
+                        </label> <br>
+                        <input style="width: 450px;height:50px" class="form-control" type="text" name="adress"> <br>
+                        <label for="">
+                            <h6 style="font-weight: bold;">Pincode</h6>
+                        </label> <br>
+                        <input style="width: 450px;" type="number" class="form-control" name="pincode"> <br>
+                        <label for="">
+                            <h6 style="font-weight: bold;">contact No</h6>
+                        </label> <br>
+                        <input style="width: 450px;" type="number" class="form-control" name="contactNo">
+                        <input type="text" name="userId" value="{{userId}}" hidden>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card" style="margin-top: 85px;border-color:black;">
+                    <div class="card-body" style=" background-image:url('https://media.istockphoto.com/id/1203764101/photo/stacked-credit-cards.jpg?b=1&s=612x612&w=0&k=20&c=Vx74FOHU96Ax5N3T89lzn4i36gK3AAlMgTmlDyXfbtE=');">
+                        <h3 class="card-title"
+                            style="margin-top: 30px;margin-left: 30px;margin-top:25px ;color:rgb(226, 44, 24)">Payment
+                            method</h3>
+                        <hr>
+                        <input type="radio" name="payment-method" value="COD" style="cursor: pointer;"><label for=""
+                            style="margin-left: 5px;">
+                            <h5 style="color: #fff;">Cash On Delivery</h5>
+                        </label> <br>
+                        <input type="radio" name="payment-method" value="ONLINE" style="cursor: pointer;"><label for=""
+                            style="margin-left: 5px;">
+                            <h5 style="color: #fff;">Online Payment</h5>
+                        </label>
+                        <div class="card bg-info float-right " style="width: 150px;">
+                            <div class="card-body text-center">
+                                <h5 class="card-title" style="color: #fff;"> Total Price</h5>
+                                <h6 style="color: rgb(245, 14, 41);" class="ml-2"> Rs {{total}}/-</h6>
+                                <button class="btn btn-success " type="submit">checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#checkout-form').submit((e) => {
+        e.preventDefault();
+        $.ajax({
+            url: '/place-order',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (response) => {
+           if(response.CodStatus){
+             alert('COD payment success')
+            location.href='/order-status'
+           }else{
+            razorpayPayment(response);
+             alert('online Payment')
+           }
+            }
+        });
+    });
+
+
+
+function razorpayPayment(order) {
+ 
+    var options = {
+        "key": "rzp_test_4cUhD08dmKn1YA", // Enter the Key ID generated from the Dashboard
+        "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Acme Corp", // Your business name
+        "description": "Test Transaction",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzKgiK-EVRX-rHzQCCl_GvwuBxH92laD1d4w&usqp=CAU",
+        "order_id": order.id, // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "prefill": { // We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+            "name": "Abhishek", // Your customer's name
+            "email": "abhishekkv@example.com",
+            "contact": "9207159670" // Provide the customer's phone number for better conversion rates
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        },
+        "handler": function (response) {
+          //  console.log('order  '+orderDetails)
+            // This is the handler function called after a successful payment
+            alert(response.razorpay_payment_id);
+            alert(response.razorpay_order_id);
+            alert(response.razorpay_signature); 
+
+            verifyPayment(response,order)
+        }
+    };
+       var rzp1 = new Razorpay(options);
+   rzp1.open();
+     
+}
+
+function verifyPayment(payment, order) {
+    $.ajax({
+        url:'/verify-payment',
+        method: 'POST',
+        data: {
+            payment: payment,
+            order: order
+        },
+success:(response)=>{
+    if(response.status){
+         location.href='/order-status'
+    }else{
+        alert('payment failed')
+    }
+}
+    });
+}
+
+
+</script>

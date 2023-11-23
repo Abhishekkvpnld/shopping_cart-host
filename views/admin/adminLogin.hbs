@@ -1,0 +1,30 @@
+<section style="padding-top: 60px;">
+  <div class="container-fluid">'
+    <div class="row">
+      <div class="col-12" style="margin-left:15%;margin-top:75px">
+
+        <form action="/admin/adminLogin" method="post" style="width:70%">
+          {{#if loginErr}}
+          <h6 style="color: red;">{{loginErr}}</h6>
+          {{/if}}
+          <div class="form-group">
+            <label for="exampleInputEmail1" style="color: #fff;">Email address</label>
+            <input required style="background-color: rgb(207, 205, 205);" type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1" style="color: #fff;">Password</label>
+            <input required style="background-color: rgb(207, 205, 205);" type="password" class="form-control" name="password" id="exampleInputPassword1"
+              placeholder="Password">
+
+          </div>
+          <button type="submit" class="btn btn-primary float-right">Submit</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

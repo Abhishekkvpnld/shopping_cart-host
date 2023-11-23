@@ -1,0 +1,59 @@
+ <section style="padding-top: 50px;"> 
+    <div class="container">
+      <div class="row">
+        <div class="col-12" style="margin-left:15%; margin-top:5%;">
+
+          <form action="/signup" method="post" style="width:70%;" id="formValidate">
+            <div class="form-group">
+              <label for="exampleInputEmail1" style="color: #fff;">Enter Name</label>
+              <input required type="text" class="form-control" name="name" id="exampleText" aria-describedby="nameHelp"
+                placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" style="color: #fff;">Email address</label>
+              <input required type="email" class="form-control" name="email" id="exampleInputEmail1"
+                aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" style="color: #fff;">Password</label>
+              <input required type="password" class="form-control" name="password" id="exampleInputPassword1"
+                placeholder="Password">
+            </div>
+            <a href="/login">already have an account?</a>
+            <button type="submit" class="btn btn-primary float-right">create account</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize form validation
+      $("#formValidate").validate({
+        rules: {
+          name: {
+             required: true,
+            minlength: 5
+          },
+          password: {
+    required: true,
+    minlength: 8,  
+  },
+        },
+        messages: {
+          name: {
+            required: 'Please enter your name',
+            minlength: 'Name requires at least 5 letters'
+          },
+           password: {
+    required: 'Please enter a password',
+    minlength: 'Password must be at least 8 characters long',
+  }
+        },
+        submitHandler: function (form) {
+          form.submit();
+        }
+      });
+    </script>
+
+  </section>

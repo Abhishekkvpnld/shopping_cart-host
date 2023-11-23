@@ -1,0 +1,22 @@
+<section style="padding-top:50px;">
+    <div class="container">
+        <div class="row">
+                {{#each products}}
+            <div class="col-12 col-md-6 mt-3"
+                style="height:250px;border:2px solid; border-radius:15px;padding:15px;background-color:#fff;">
+                <div class="row">
+                    <div class='col-6 col-md-4'>
+                        <img src="/product-image/{{this.item}}.png" alt="" style="width:220px;height:220px">
+                    </div>
+                    <div class="col-6 col-md-8 text-center">
+                        <h2 style="color: brown;">Product Details</h2>
+                        <h5 style="color: blue;">Name: <p style="color: black;">{{this.products.productName}}</p></h5>
+                        <h5 style="color: blue;">Price:<p style="color: black;">{{this.products.productPrice}}/- </p></h5>
+                        <h5 style="color: blue;">Qty:<p style="color: black;">{{this.quantity}} </p></h5>
+                    </div>
+                </div>
+            </div>
+                    {{/each}}
+        </div>
+    </div>
+</section>

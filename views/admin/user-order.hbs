@@ -1,0 +1,38 @@
+<section style="padding-top: 60px;">
+    <div class="container">
+<div class="row">
+<div class="col-12" style="background-color: #272525;">
+<table class="table table-hover">   
+  <thead>
+    <tr>
+        <th scope="col" style="color: #fff;">No</th>
+      <th scope="col" style="color: #fff;">Date</th>
+      <th scope="col" style="color: #fff;">Adress</th>
+      <th scope="col" style="color: #fff;">Pincode</th>
+      <th scope="col" style="color: #fff;">Mobile</th>
+       <th scope="col" style="color: #fff;">Amount</th>
+        <th scope="col" style="color: #fff;">Payment-Type</th>
+         <th scope="col" style="color: #fff;">Status</th>
+    </tr>
+  </thead>
+      {{#each details}}
+  <tbody>
+    <tr>
+        <td>  <button class="btn btn-dark">{{@index}}</button></td>
+      <td style="color: #fff;">{{date}}</td>
+      <td style="color: #fff;">{{delivery.address}}</td>
+      <td style="color: #fff;">{{delivery.mobileNo}}</td>
+           <td style="color: #fff;">{{delivery.pinCode}}</td>
+                <td style="color: #fff;">{{totalPrice}}</td>
+                     <td style="color: #fff;">{{paymentMethod}}</td>
+                          <td style="color: #fff;"> {{status}}</td>
+                               <td><button class="btn btn-success"><a href="/admin/getproductShipped/{{_id}}" style="color:#fff">{{status}}</a></button></td>
+    </tr>
+  </tbody>
+  {{/each}}
+</table>
+
+</div>
+</div>
+    </div>
+</section>

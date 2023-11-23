@@ -1,0 +1,35 @@
+<header style="background-color: rgb(148, 148, 163);height: 60px;width:100%;z-index:1;position:fixed" >
+<div class="text-center">
+    <nav class="navbar navbar-expand-lg navbar-light" class="text-center">
+  <a class="navbar-brand" href="/">User</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin">Home <span class="sr-only">(current)</span></a>
+      </li>
+<li class="nav-item active">
+        <a class="nav-link" href="/admin/userOrderDetails">All orders <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+
+    {{#if adminData}}
+ <a href="/admin/logOut" style="color: #fefcfc;width: 100px; margin-right: 5px;" class="btn btn-danger">logOut</a>
+<button class="btn btn-light" style="color: #070707;">
+     {{#each adminData}}
+  {{this.name}}
+{{/each}}
+  </button>
+    {{else}}
+     <a href="/admin/signup" style="color: #070707;width: 100px; margin-right: 5px;" class="btn btn-light">signup</a>
+  <a href="/admin/adminLogin" style="color: #fff;width:100px" class="btn btn-primary">logIn</a>
+  {{/if}}
+
+  </div>
+
+</nav>
+</div>
+</header>

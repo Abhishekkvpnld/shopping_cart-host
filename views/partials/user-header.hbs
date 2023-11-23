@@ -1,0 +1,55 @@
+<header style="background-color: rgb(187, 194, 247);height:60px;width:100%;z-index:1;position:fixed">
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <a class="navbar-brand" href="/admin"><h6>Admin</h6></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/"><h6>Home</h6> <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cart"><h6>Cart  <span class="badge rounded-pill badge-notification bg-danger" style="color: aliceblue;" id="cart-count">{{count}}</span></h6></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/order-details">
+            {{#if user}}
+         <h6>Order</h6>
+            {{/if}}
+          </a>
+        </li> 
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" style="height: 35px;" placeholder="Search products" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <div class="dropdown" style="margin: 5px;">
+             {{#if user}}
+          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+         
+            {{user.name}}     </button>
+            {{else}}
+       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            account
+           </button>
+             {{/if}}
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {{#if user}}
+            <a class="dropdown-item" href='/logout'  style="background-color: rgb(189, 83, 73);" >logout</a>
+            {{else}}
+            <a class="dropdown-item" href='/login' style="color:red">login</a>
+            <a class="dropdown-item" href="/signup"  style="color:blue">signup</a>
+            {{/if}}
+          </div>
+        </div>
+      </form>
+    </div>
+  </nav>
+</header>

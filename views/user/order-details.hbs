@@ -1,0 +1,38 @@
+<section style="padding-top: 60px;">
+    <div class="container">
+<div class="row">
+<div class="col-12" style="background-color: #fff;">
+<table class="table table-hover">   
+  <thead>
+    <tr>
+        <th scope="col">No</th>
+      <th scope="col">Date</th>
+      <th scope="col">Adress</th>
+      <th scope="col">Pincode</th>
+      <th scope="col">Mobile</th>
+       <th scope="col">Amount</th>
+        <th scope="col">Payment-Type</th>
+         <th scope="col">Status</th>
+    </tr>
+  </thead>
+      {{#each orderDetails}}
+  <tbody>
+    <tr>
+        <td>  <button class="btn btn-info">{{@index}}</button></td>
+      <td>{{date}}</td>
+      <td>{{delivery.address}}</td>
+      <td>{{delivery.mobileNo}}</td>
+           <td>{{delivery.pinCode}}</td>
+                <td>{{totalPrice}}</td>
+                     <td>{{paymentMethod}}</td>
+                          <td>{{status}}</td>
+                               <td><button class="btn btn-success"><a href="/view-order-products/{{this._id}}" style="color:#fff">view products</a></button></td>
+    </tr>
+  </tbody>
+  {{/each}}
+</table>
+
+</div>
+</div>
+    </div>
+</section>

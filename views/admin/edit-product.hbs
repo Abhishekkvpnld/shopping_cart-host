@@ -1,0 +1,44 @@
+<div style="background-color:#fff;">
+    <div class="row">
+
+        <h1 style="padding-left: 23%;">Add item</h1>
+
+    </div>
+    <div class="container ">
+        <div style="background-color:#fff;width: 560px;" class="row">
+
+            <form action="/admin/edit-product/{{productData._id}}" method="POST" enctype="multipart/form-data" style="padding: 30px;">
+                <div class="form-group">
+                    <label>product no</label>
+                    <input style="width: 500px; " name="productNo" type="text" class="form-control" id="formGroupExampleInput" value="{{productData.productNo}}">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">product name</label>
+                    <input style="width: 500px;" name="productName" type="text" class="form-control" id="formGroupExampleInput2"  value="{{productData.productName}}">
+                </div>
+                <div class="form-group">
+                    <label>product details</label>
+                    <input style="width: 500px; " name="productDetails" type="text" class="form-control" id="formGroupExampleInput2"  value="{{productData.productDetails}}">
+                </div>
+                <div class="form-group">
+                    <label>product price</label>
+                    <input style="width: 500px;" name="productPrice" type="text" class="form-control" id="formGroupExampleInput2"  value="{{productData.productPrice}}">
+                </div>
+                <div class="form-group">
+                    <label>image</label>
+                    <img src="/product-image/{{productData._id}}.png" style="height: 100px;width: 80px;" alt="" id="viewImage">
+                    <input style="width: 500px;margin-top:10px" name="image" type="file" class="form-control" placeholder="add image" onchange="imageView(event)">
+                </div>
+                <div>
+                    <button class="btn btn-success mt-2" type="submit">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function imageView(event){
+        document.getElementById('viewImage').src=URL.createObjectURL(event.target.files)
+    }
+</script>

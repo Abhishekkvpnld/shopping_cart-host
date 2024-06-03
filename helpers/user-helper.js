@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const collections = require('../dbconfig/collections');
 const orderProduct = require('./models/place-order-model');
 const Razorpay = require('razorpay');
-const { count } = require('console');
 const { response } = require('express');
 
 
@@ -62,7 +61,6 @@ module.exports = {
 
             }
             let cart = await userCart.findOne({ user: new objectId(userId) }).lean()
-            console.log(cart);
             if (cart) {
                 let proExist = cart.products.findIndex(product => product.item == proId)
                 // console.log(proExist);
@@ -133,29 +131,12 @@ module.exports = {
         });
     },
 
-    // {
-    // $lookup: {
-    //     from: collections.PRODUCT,
-    //     let: { proList: '$product' },
-    //     pipeline: [
-    //         {
-    //             $match: {
-    //                 $expr: {
-    //                     $in: ["$_id", "$$proList"]
-    //                 }
-    //             }
-    //         } 
-    //     ],
-    //     as: "cartItems"
-    // }
-    // }
 
 
     getCartCount: (userId) => {
         return new Promise(async (resolve, reject) => {
             let user = await userCart.findOne({ user: new objectId(userId) }).lean()
             if (user) {
-                console.log(user.products.length);
                 var count = user.products.length
                 resolve(count)
             } else {
@@ -168,27 +149,28 @@ module.exports = {
 
     changeProductQuantity: (cartId, proId, changeCount, quantity) => {
         let Count = parseInt(changeCount)
+        let productQuantity = parseInt(quantity);
+
         return new Promise(async (resolve, reject) => {
+            if (Count === -1 && productQuantity === 1) {
+                let removeProduct = await userCart.updateOne({ _id: new objectId(cartId) },
+                    {
+                        $pull: { products: { item: new objectId(proId) } }
+                    }).then((res)=>{
 
-            if(changeCount === -1 && quantity ==1){
-                let removeProduct = userCart.updateOne({ _id: new objectId(cartId)},
-                {
-                    $pull:{products:{item: new objectId(proId)}}
-                }
-                ).then((response)=>{
-                    resolve({removeProduct:true})
-                })
+                        resolve({removeProduct:true});
+                    });
 
-            }else{
+            } else {
 
-            let product = await userCart.updateOne({ _id: new objectId(cartId), 'products.item': new objectId(proId) },
-                {
-                    $inc: { 'products.$.quantity': Count }
-                })
-                .then((response) => {
-                    response.quantity = quantity
-                    resolve(response)
-                })
+                let product = await userCart.updateOne({ _id: new objectId(cartId), 'products.item': new objectId(proId) },
+                    {
+                        $inc: { 'products.$.quantity': Count }
+                    })
+                    .then((response) => {
+                        response.quantity = quantity
+                        resolve(response)
+                    })
             }
         })
     },
@@ -248,9 +230,8 @@ module.exports = {
                         }
                     }
                 ]);
-                let totalPrice = total[0].totalPrice
+                let totalPrice = total[0].totalPrice;
                 resolve(totalPrice);
-                console.log('products inside');
             } else {
 
                 console.log('cart is empty');

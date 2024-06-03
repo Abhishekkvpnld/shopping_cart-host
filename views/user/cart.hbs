@@ -17,7 +17,10 @@
           <td><img src="/product-image/{{this.products._id}}.png" alt="" style="width: 50px;height:50px"></td>
           <td>{{products.productName}}</td>
           <td>Rs {{products.productPrice}}/-</td>
-          <td><button id="{{this._id}}" style="width: 30px;margin-right:10px;" onclick="changeQuantity('{{this._id}}','{{this.products._id}}',-1)">-</button><span id="{{this.products._id}}">{{quantity}}</span><button style="width: 30px;margin-left:10px" onclick="changeQuantity('{{this._id}}','{{this.products._id}}',1)">+</button></td>
+          <td><button id="{{this._id}}" style="width: 30px;margin-right:10px;"
+              onclick="changeQuantity('{{this._id}}','{{this.products._id}}',-1)">-</button><span
+              id="{{this.products._id}}">{{quantity}}</span><button style="width: 30px;margin-left:10px"
+              onclick="changeQuantity('{{this._id}}','{{this.products._id}}',1)">+</button></td>
           <td><button class="btn btn-danger"
               onclick="if (confirm('Are you sure you want to delete {{products.productName}} ?')) removeProduct('{{this._id}}','{{this.products._id}}')">Remove</button>
           </td>
@@ -28,13 +31,14 @@
     <hr>
     {{#if total }}
     <div class="float-right btn btn-light" style="margin-right: 120px;">
-      <h4>Total Price <h5 style="color: blue;">Rs <span id="total">{{total}}</span>/-</h5></h4>
-         <a class="btn btn-success" href="/place-order">Place Order</a>
+      <h4>Total Price <h5 style="color: blue;">Rs <span id="total">{{total}}</span>/-</h5>
+      </h4>
+      <a class="btn btn-success" href="/place-order">Place Order</a>
     </div>
-    {{else}} 
-<div class="text-center">
-  <h1 style="color: red;"> <b>cart is empty</b></h1>
-</div>
+    {{else}}
+    <div class="text-center" style="height: 100vh;">
+      <h1 style="color: red;"> <b>cart is empty</b></h1>
+    </div>
     {{/if}}
   </div>
 </section>
@@ -51,14 +55,13 @@
         changeCount: changeCount,
         quantity: quantity
       },
-      method: 'post',
+      method: 'post',  
       success: (response) => {
-        if(response.removeProduct){
-          alert('product removed from cart')
-          location.reload()
-        }else{
-        document.getElementById(proId).innerHTML = quantity + changeCount;
-        document.getElementById('total').innerHTML=response.response.total;
+        if (response.removeProduct) {
+          location.reload();
+        } else {
+          document.getElementById(proId).innerHTML = quantity + changeCount;
+          document.getElementById('total').innerHTML = response.response.total;
         }
       }
     });

@@ -10,24 +10,24 @@
             <form action="/admin/edit-product/{{productData._id}}" method="POST" enctype="multipart/form-data" style="padding: 30px;">
                 <div class="form-group">
                     <label>product no</label>
-                    <input style="width: 500px; " name="productNo" type="text" class="form-control" id="formGroupExampleInput" value="{{productData.productNo}}">
+                    <input style="width: 500px;" required name="productNo" type="text" class="form-control" id="formGroupExampleInput" value="{{productData.productNo}}">
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput2">product name</label>
-                    <input style="width: 500px;" name="productName" type="text" class="form-control" id="formGroupExampleInput2"  value="{{productData.productName}}">
+                    <input style="width: 500px;" required name="productName" type="text" class="form-control" id="formGroupExampleInput2"  value="{{productData.productName}}">
                 </div>
                 <div class="form-group">
                     <label>product details</label>
-                    <input style="width: 500px; " name="productDetails" type="text" class="form-control" id="formGroupExampleInput2"  value="{{productData.productDetails}}">
+                    <input style="width: 500px; " required name="productDetails" type="text" class="form-control" id="formGroupExampleInput2"  value="{{productData.productDetails}}">
                 </div>
                 <div class="form-group">
                     <label>product price</label>
-                    <input style="width: 500px;" name="productPrice" type="text" class="form-control" id="formGroupExampleInput2"  value="{{productData.productPrice}}">
+                    <input style="width: 500px;" required name="productPrice" type="text" class="form-control" id="formGroupExampleInput2"  value="{{productData.productPrice}}">
                 </div>
                 <div class="form-group">
                     <label>image</label>
                     <img src="/product-image/{{productData._id}}.png" style="height: 100px;width: 80px;" alt="" id="viewImage">
-                    <input style="width: 500px;margin-top:10px" name="image" type="file" class="form-control" placeholder="add image" onchange="imageView(event)">
+                    <input style="width: 500px;margin-top:10px" required name="image" type="file" class="form-control" placeholder="add image" onchange="imageView(event)">
                 </div>
                 <div>
                     <button class="btn btn-success mt-2" type="submit">submit</button>

@@ -48,17 +48,22 @@ router.get('/signup', (req, res) => {
 
 router.post('/signup', async function (req, res) {
   userHelper.doSingup(req.body).then((response) => {
-    req.session.user = response;
-    // req.session.userLoggedIn = true
-    res.redirect('/login');
-  })
+    if (response.error) {
+      res.redirect("/signup")
+    } else {
+      req.session.user = response;
+      // req.session.userLoggedIn = true
+      res.redirect('/login');
+    };
+  });
 })
 
 router.post('/login', (req, res, next) => {
+  console.log(req.body.email);
   userHelper.doLogin(req.body).then((response) => {
     if (response.status) {
-      req.session.userLoggedIn = true
       req.session.user = response.user
+      req.session.userLoggedIn = true
       res.redirect('/')
     } else {
       res.redirect('/login')
@@ -101,18 +106,18 @@ router.post('/change-product-quantity', async (req, res) => {
   userHelper.changeProductQuantity(cartId, proId, changeCount, quantity).then(async (response) => {
     try {
       let total = await userHelper.getTotalPrice(userId);
-  
+
       if (response.removeProduct) {
         return res.json({ removeProduct: response.removeProduct });
       }
-  
+
       response.total = total;
       res.json(response);
     } catch (error) {
       console.error('Error:', error);
       res.status(500).json({ error: 'An error occurred' });
     }
-  
+
   })
 })
 

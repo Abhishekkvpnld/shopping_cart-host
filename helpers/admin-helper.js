@@ -45,7 +45,7 @@ module.exports = {
                     resolve(response)
                 })
         })
-    },
+    }, 
 
 doLogin:(adminData)=>{
     return new Promise(async(resolve,reject)=>{

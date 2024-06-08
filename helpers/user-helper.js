@@ -16,28 +16,39 @@ var instance = new Razorpay({
 module.exports = {
 
     doSingup: (userData) => {
+
         return new Promise(async (resolve, reject) => {
+
+            const checkEmail = await Userlogin.findOne({ email: userData.email })
+
+          if(!checkEmail){
             userData.password = await bcrypt.hash(userData.password, 10)
             let data = new Userlogin(userData)
             data.save()
             resolve(data)
+          }else{
+            resolve({error:true})
+          }
+
         })
     },
 
     doLogin: (userData) => {
+        const userEmail = userData.email;
+
         return new Promise(async (resolve, reject) => {
             loginStatus: false
             let response = { status: false }
             //data taking from database
-            let user = await Userlogin.findOne({ Email: userData.Email })
+            Userlogin.findOne({ email: userEmail })
                 .then((user) => {
-                    console.log(user);
+                    console.log(user, 'any')
                     if (user) {
                         bcrypt.compare(userData.password, user.password).then((status) => {
                             if (status) {
                                 console.log('login success')
-                                response.user = user
                                 response.status = true
+                                response.user = user
                                 resolve(response)
                             } else {
                                 console.log('login failed')
@@ -156,9 +167,9 @@ module.exports = {
                 let removeProduct = await userCart.updateOne({ _id: new objectId(cartId) },
                     {
                         $pull: { products: { item: new objectId(proId) } }
-                    }).then((res)=>{
+                    }).then((res) => {
 
-                        resolve({removeProduct:true});
+                        resolve({ removeProduct: true });
                     });
 
             } else {
